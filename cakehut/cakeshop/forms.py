@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from cakeshop.models import User,Category
+from cakeshop.models import User,Category,Cakes
 
 class RegistrationForm(UserCreationForm):
     class Meta:
@@ -16,3 +16,8 @@ class CategoryCreateForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ["name"]
+
+class CakeCreateForm(forms.ModelForm):
+    class Meta:
+        model = Cakes
+        fields = "__all__"

@@ -1,12 +1,15 @@
+from typing import Any
+from django.db import models
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from django.views.generic import View,CreateView,FormView
-from cakeshop.forms import RegistrationForm,LoginForm,CategoryCreateForm
-from cakeshop.models import User,Category
+from django.views.generic import View,CreateView,FormView,ListView,UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+
+from cakeshop.forms import RegistrationForm,LoginForm,CategoryCreateForm,CakeCreateForm
+from cakeshop.models import User,Category,Cakes
 
 # Create your views here.
 
@@ -51,11 +54,12 @@ def logoutview(request,*args,**kwargs):
     return redirect("signin")
 
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(CreateView,ListView):
     template_name = "cakeshop/category_add.html"
     form_class = CategoryCreateForm
     model = Category
     success_url = reverse_lazy("category_add")
+    context_object_name = "category"
 
     def form_valid(self, form):
         messages.success(self.request,"Category Added Successfully")
@@ -65,4 +69,43 @@ class CategoryCreateView(CreateView):
         messages.error(self.request,"Failed to add Category")
         return super().form_invalid(form)
     
+    def get_queryset(self):
+        return Category.objects.filter(is_active=True)
+    
 
+def disable_category(request,*args,**kwargs):
+    id = kwargs.get("pk")
+    Category.objects.filter(id=id).update(is_active=False)
+    messages.success(request,"Category Removed")
+    return redirect("category_add")
+
+
+class CakeCreateView(CreateView):
+    template_name = "cakeshop/cake_add.html"
+    form_class = CakeCreateForm
+    model = Cakes
+    success_url = reverse_lazy("cake_list")
+
+    def form_valid(self, form):
+        messages.success(self.request,"Cake Added Successfully")
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request,"Failed to add Cake")
+        return super().form_invalid(form)
+
+class CakeListView(ListView):
+    template_name = "cakeshop/cake_list.html"
+    model = Cakes
+    context_object_name = "cakes"
+
+def cake_remove(request,*args,**kwargs):
+    id = kwargs.get("pk")
+    Cakes.objects.filter(id=id).delete()
+    return redirect("cake_list")
+
+class CakeUpdateView(UpdateView):
+    template_name = "cakeshop/cake_edit.html"
+    form_class = CakeCreateForm
+    model = Cakes
+    success_url = reverse_lazy("cake_list")

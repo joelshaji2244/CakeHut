@@ -4,22 +4,23 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    phone=models.CharField(max_length=100,unique=True)
-    address=models.CharField(max_length=200)
+    phone = models.CharField(max_length=100,unique=True)
+    address = models.CharField(max_length=200)
 
 
 class Category(models.Model):
-    name=models.CharField(max_length=100,unique=True)
-    is_active=models.BooleanField(default=True)
+    name = models.CharField(max_length=100,unique=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
     
 
 class Cakes(models.Model):
-    name=models.CharField(max_length=100,unique=True)
-    image=models.ImageField(upload_to="images")
-    description=models.CharField(max_length=500)
+    name = models.CharField(max_length=100,unique=True)
+    image = models.ImageField(upload_to="images")
+    description = models.CharField(max_length=500)
+    category = models.ForeignKey(Category,null=True,on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
