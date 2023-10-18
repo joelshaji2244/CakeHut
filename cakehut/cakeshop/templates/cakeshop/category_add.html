@@ -29,6 +29,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -36,7 +37,11 @@
                     {% for cat in category %}
                     <tr>
                         <td>{{cat.name}}</td>
-                        <td><a href="{% url 'disable_category' cat.id %}">Disable</a></td>
+                        <td>{{cat.is_active}}</td>
+                        <td>
+                            <a href="{% url 'disable_category' cat.id %}">Disable</a>
+                            <a href="{% url 'enable_category' cat.id %}">Enable</a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

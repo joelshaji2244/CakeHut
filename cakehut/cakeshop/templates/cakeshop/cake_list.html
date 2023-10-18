@@ -30,7 +30,8 @@
                         <p class="card-text mb-0">{{ c.description }}</p>   
                     </div>
                     <div class="d-flex justify-content-evenly mb-3">
-                        <a href="#"><i class="fa-solid fa-eye fa-lg" style="color: #ffd500;"></i></a>
+                        <a href="{% url 'cake_detail' c.id %}"><i class="fa-solid fa-eye fa-lg" style="color: #ffd500;"></i></a>
+                        <a href="{% url 'add_varient' c.id %}"><i class="fa-solid fa-plus fa-lg" style="color: #3eee1b;"></i></a>
                         <a href="{% url 'cake_delete' c.id %}"><i class="fa-solid fa-trash fa-lg" style="color: #fd1717;"></i></a>
                         <a href="{% url 'cake_edit' c.id %}"><i class="fa-solid fa-pen-to-square fa-lg" style="color: #00b0eb;"></i></a>
                     </div>
