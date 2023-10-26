@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/e739b7768c.js" crossorigin="anonymous"></script>
-  </head>
-<body>
+{% extends 'cakeshop/base.html' %}
+
+{% block main_block %}
     <div class="container-fluid mt-5">
         <div class="item d-flex justify-content-center">
             <div class="card mb-3" style="width: 100%;">
@@ -29,14 +22,9 @@
                             <tr>
                                 <th>Weight</th>
                                 <th>Price</th>
-                                <th class="text-center" style="width: 15%;">Action</th>
-                                <th>Offer</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
-                                <th>Action</th>
+                                <th class="text-center" style="width: 15%;">Action</th> 
                             </tr>
                         </thead>
-                        
                         <tbody>
                             {% for v in cake.cakevarients_set.all %}
                             <tr>
@@ -46,25 +34,41 @@
                                   <a href="{% url 'update_varient' v.id %}"><i class="fa-solid fa-pen" style="color: #00bfff;"></i></a>
                                   <a href="{% url 'varient_delete' v.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a>
                                   <a href="{% url 'offer_add' v.id %}"><i class="fa-solid fa-gift" style="color: #ffd500;"></i></a>
-                                </td>
-                                {% for o in v.offers_set.all %}
-                                <td>{{o.price}}</td>
-                                <td>{{o.start_date}}</td>
-                                <td>{{o.due_date}}</td>
-                                <td>
-                                  <a href="{% url 'offer_delete' o.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a>
-                                </td>
-                                {% endfor %}
+                                </td> 
                             </tr>
                             {% endfor %}
                         </tbody>
                       </table>
-                      
+                      <hr>
+                      <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Weight</th>
+                                <th>Offer Price</th>
+                                <th>Start Date</th> 
+                                <th>End Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for v in cake.cakevarients_set.all %}
+                            {% for o in v.offers_set.all %}
+                              <tr>
+                                <td>{{v.weight}}</td>
+                                <td>{{o.price}}</td>
+                                <td>{{o.start_date|date:"SHORT_DATE_FORMAT"}}</td>
+                                <td>{{o.due_date|date:"SHORT_DATE_FORMAT"}}</td>
+                                <td><a href="{% url 'offer_delete' o.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a></td>
+                              </tr>
+                            {% endfor %}
+                          {% endfor %}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}

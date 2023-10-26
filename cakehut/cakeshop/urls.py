@@ -1,7 +1,7 @@
 from django.urls import path
 from cakeshop.views import SignUpView,SignInView,logoutview,CategoryCreateView,disable_category,CakeCreateView,\
     CakeListView,CakeUpdateView,cake_remove,CakeVarientCreateView,CakeDetailView,enable_category,CakeVarientUpdateView,\
-    remove_varient,OfferAddView,remove_offer
+    remove_varient,OfferAddView,remove_offer,IndexView
 
 
 urlpatterns = [
@@ -21,4 +21,5 @@ urlpatterns = [
     path('cake/<int:pk>/varient/remove', remove_varient, name = "varient_delete"),
     path('cake/<int:pk>/varient/offer/add', OfferAddView.as_view(), name = "offer_add"),
     path('cake/<int:pk>/varient/offer/remove', remove_offer, name = "offer_delete"),
+    path('index', IndexView.as_view(), name = "index"),
 ]
