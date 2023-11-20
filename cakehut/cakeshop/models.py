@@ -25,6 +25,12 @@ class Cakes(models.Model):
     def __str__(self):
         return self.name
     
+    @property
+    def varients(self):
+        qs = self.cakevarients_set.all()
+        return qs
+    
+    
 
 class CakeVarients(models.Model):
     options=(
@@ -36,7 +42,15 @@ class CakeVarients(models.Model):
     )
     weight=models.CharField(max_length=100,choices=options,default="1kg")
     price=models.PositiveIntegerField()
-    cake=models.ForeignKey(Cakes,on_delete=models.CASCADE)
+    cake=models.ForeignKey(Cakes,on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return self.cake.name
+    
+    @property
+    def review(self):
+        qs = self.reviews_set.all()
+        return qs
 
 
 class Offers(models.Model):
