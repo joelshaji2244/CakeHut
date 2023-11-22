@@ -58,11 +58,11 @@ class CakeView(ModelViewSet):
     @action(methods=["post"],detail=True)
     def review_add(self,request,*args,**kwargs):
         vid = kwargs.get("pk")
-        varient_obj = CakeVarients.objects.get(id=vid)
+        cake_obj = Cakes.objects.get(id=vid)
         user = request.user
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(cakevarient=varient_obj,user=user)
+            serializer.save(cake=cake_obj,user=user)
             return Response(data=serializer.data)
         else:
             return Response(data=serializer.errors)

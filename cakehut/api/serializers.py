@@ -14,27 +14,27 @@ class UserCreationSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 
-class ReviewSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(read_only=True)
-    cakevarient = serializers.CharField(read_only=True)
-    class Meta:
-        model = Reviews
-        fields = "__all__"
-
 class CakeVarientSerializer(serializers.ModelSerializer):
-
     id = serializers.CharField(read_only=True)
-    review = ReviewSerializer(many=True,read_only=True)
+    
     class Meta:
         model = CakeVarients
         exclude = ("cake", )
 
+class ReviewSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(read_only=True)
+    cake = serializers.CharField(read_only=True)
+    class Meta:
+        model = Reviews
+        fields = "__all__"
 
 class CakeSerializer(serializers.ModelSerializer):
 
     id = serializers.CharField(read_only=True)
     category = serializers.SlugRelatedField(slug_field="name",read_only=True)
     varients = CakeVarientSerializer(many=True,read_only=True)
+    review = ReviewSerializer(many=True,read_only=True)
+
     class Meta:
         model = Cakes
         fields = "__all__"
