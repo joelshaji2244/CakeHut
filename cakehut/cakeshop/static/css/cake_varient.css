@@ -11,7 +11,7 @@
 html, body {
     height: 100%;
     /* background-color: #212529; */
-    background-image: url('/cakeshop/static/image/cake_add.png');
+    background-image: url('/cakeshop/static/image/cakevarient.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -23,7 +23,7 @@ html, body {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       text-align: center;
       min-height: 95vh;
 }

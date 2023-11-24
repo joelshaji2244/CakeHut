@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Raleway:wght@300;400&display=swap');
+
+body{
+    background-image: url('/cakeshop/static/image/add_category.png');
+}
+.text-font{
+    font-family: 'Raleway', sans-serif;
+}

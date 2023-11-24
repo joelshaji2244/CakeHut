@@ -4,7 +4,6 @@
 {% block main_block %}
 <head>
     <link href="{% static 'css/cake_add.css' %}" rel="stylesheet" />
-    <link href="{% static 'js/cake_add.js' %}" rel="stylesheet" />
 </head>
 <div class="form-body">
     <div class="row">
@@ -12,7 +11,7 @@
             <div class="form-content">
                 <div class="form-items">
                     <h3 class="mb-3">Add Cake</h3>
-                    <form class="requires-validation" novalidate method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form.as_p}}
               

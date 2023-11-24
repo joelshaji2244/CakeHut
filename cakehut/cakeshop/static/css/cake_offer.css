@@ -10,8 +10,8 @@
 
 html, body {
     height: 100%;
-    /* background-color: #212529; */
-    background-image: url('/cakeshop/static/image/cake_add.png');
+    /* background-color: #152733; */
+    background-image: url('/cakeshop/static/image/offer.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -40,7 +40,7 @@ html, body {
     justify-content: center;
     -webkit-align-items: center;
     align-items: center;
-    padding: 25px;
+    padding: 45px;
 }
 
 .form-content .form-items {
@@ -48,7 +48,7 @@ html, body {
     padding: 40px;
     display: inline-block;
     width: 100%;
-    min-width: 540px;
+    min-width: 523px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -58,7 +58,7 @@ html, body {
 }
 
 .form-content h3 {
-    color: #fff;
+    color: red;
     text-align: left;
     font-size: 28px;
     font-weight: 600;
@@ -79,7 +79,7 @@ html, body {
 
 
 .form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
-    color: #fff;
+    color: black;
 }
 
 .form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {

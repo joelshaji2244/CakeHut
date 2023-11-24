@@ -1,7 +1,10 @@
 {% extends 'cakeshop/base.html' %}
+{% load static %}
 
 {% block main_block %}
-    <div class="container-fluid mt-5">
+<link rel="stylesheet" href="{% static 'css/cake_list.css' %}">
+
+    <div class="container-fluid mt-2 font">
         <div class="item d-flex justify-content-center">
             <div class="card mb-3" style="width: 100%;">
                 <div class="row g-0">
@@ -10,64 +13,91 @@
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h5 class="card-title">{{cake.name}}</h5>
+                      <h5 class="card-title fw-bolder">{{cake.name}}</h5>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">{{cake.category}}</li>
                         <li class="list-group-item">{{cake.description}}</li>
                       </ul>
                       <hr>
                       
-                      <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Weight</th>
-                                <th>Price</th>
-                                <th class="text-center" style="width: 15%;">Action</th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for v in cake.cakevarients_set.all %}
-                            <tr>
-                                <td>{{v.weight}}</td>
-                                <td>{{v.price}}</td>
-                                <td class="d-flex justify-content-evenly">
-                                  <a href="{% url 'update_varient' v.id %}"><i class="fa-solid fa-pen" style="color: #00bfff;"></i></a>
-                                  <a href="{% url 'varient_delete' v.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a>
-                                  <a href="{% url 'offer_add' v.id %}"><i class="fa-solid fa-gift" style="color: #ffd500;"></i></a>
-                                </td> 
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                      </table>
-                      <hr>
-                      <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Weight</th>
-                                <th>Offer Price</th>
-                                <th>Start Date</th> 
-                                <th>End Date</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          {% for v in cake.cakevarients_set.all %}
-                            {% for o in v.offers_set.all %}
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
                               <tr>
-                                <td>{{v.weight}}</td>
-                                <td>{{o.price}}</td>
-                                <td>{{o.start_date|date:"SHORT_DATE_FORMAT"}}</td>
-                                <td>{{o.due_date|date:"SHORT_DATE_FORMAT"}}</td>
-                                <td><a href="{% url 'offer_delete' o.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a></td>
+                                  <th>Weight</th>
+                                  <th>Price</th>
+                                  <th class="text-center" style="width: 15%;">Action</th> 
                               </tr>
+                          </thead>
+                          <tbody class="table-group-divider">
+                              {% for v in cake.cakevarients_set.all %}
+                              <tr>
+                                  <td>{{v.weight}}</td>
+                                  <td>{{v.price}}</td>
+                                  <td class="d-flex justify-content-evenly">
+                                    <a href="{% url 'update_varient' v.id %}"><i class="fa-solid fa-pen" style="color: #00bfff;"></i></a>
+                                    <a href="{% url 'varient_delete' v.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a>
+                                    <a href="{% url 'offer_add' v.id %}"><i class="fa-solid fa-gift" style="color: #ffd500;"></i></a>
+                                  </td> 
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                      <hr>
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                              <tr>
+                                  <th>Weight</th>
+                                  <th>Offer Price</th>
+                                  <th>Start Date</th> 
+                                  <th>End Date</th>
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody class="table-group-divider">
+                            {% for v in cake.cakevarients_set.all %}
+                              {% for o in v.offers_set.all %}
+                                <tr>
+                                  <td>{{v.weight}}</td>
+                                  <td>{{o.price}}</td>
+                                  <td>{{o.start_date|date:"SHORT_DATE_FORMAT"}}</td>
+                                  <td>{{o.due_date|date:"SHORT_DATE_FORMAT"}}</td>
+                                  <td><a href="{% url 'offer_delete' o.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a></td>
+                                </tr>
+                              {% endfor %}
                             {% endfor %}
-                          {% endfor %}
-                        </tbody>
-                      </table>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
+        </div>
+        <h1 class="text-white">Ratings & Review</h1>
+        <div class="table-responsive">
+          <table class="table text-white mb-5">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              {% for r in cake.reviews_set.all %}
+                  <tr>
+                    <td>{{r.user}}</td>
+                    <td>{{r.rating}}/5</td>
+                    <td>{{r.comment}}</td>
+                    <td><a href="{% url 'review_delete' r.id %}"><i class="fa-solid fa-xmark" style="color: #ff0000;"></i></a></td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
     </div>
 

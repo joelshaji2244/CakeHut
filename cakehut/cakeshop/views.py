@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.utils.decorators import method_decorator
 
 from cakeshop.forms import RegistrationForm,LoginForm,CategoryCreateForm,CakeCreateForm,CakeVarientForm,OfferForm
-from cakeshop.models import User,Category,Cakes,CakeVarients,Offers
+from cakeshop.models import User,Category,Cakes,CakeVarients,Offers,Reviews
 
 # Create your views here.
 
@@ -110,6 +110,13 @@ def enable_category(request,*args,**kwargs):
     id = kwargs.get("pk")
     Category.objects.filter(id=id).update(is_active=True)
     messages.success(request,"Category Enabled")
+    return redirect("category_add")
+
+@signin_required
+@is_admin
+def remove_category(request,*args,**kwargs):
+    id = kwargs.get("pk")
+    Category.objects.filter(id=id).delete()
     return redirect("category_add")
 
 
@@ -224,6 +231,15 @@ def remove_offer(request,*args,**kwargs):
     offer_object = Offers.objects.get(id=id)
     cake_id = offer_object.cakevarient.cake.id
     offer_object.delete()
+    return redirect("cake_detail",pk=cake_id)
+
+@signin_required
+@is_admin
+def remove_review(request,*args,**kwargs):
+    id = kwargs.get("pk")
+    review_obj = Reviews.objects.get(id=id)
+    cake_id = review_obj.cake.id
+    review_obj.delete()
     return redirect("cake_detail",pk=cake_id)
 
 class IndexView(TemplateView):

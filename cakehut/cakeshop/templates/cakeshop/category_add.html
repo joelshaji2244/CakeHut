@@ -1,21 +1,26 @@
 {% extends 'cakeshop/base.html' %}
+{% load static %}
 
 {% block main_block %}
+
+    <head>
+        <link rel="stylesheet" href="{% static 'css/category_add.css' %}">
+    </head>
     <div class="container">
-        <div class="container mt-5">
-            <h1>Add Category</h1>
+        <div class="container mt-5 text-font">
+            <h1 class="fw-bolder">Add Category</h1>
             <form action="" method="post" class="mt-5">
                 {% csrf_token %}
                 {{form.as_p}}
-                <input type="submit" name="category_add" value="ADD" class="btn btn-outline-info">
+                <input type="submit" name="category_add" value="ADD" class="text-white btn btn-info">
             </form>
-            <div class="mt-5">
-                <table class="table">
-                    <thead>
+            <div class="mt-5 table-responsive">
+                <table class="table w-50">
+                    <thead class="fw-bolder">
                         <tr>
                             <th>Name</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,9 +28,10 @@
                         <tr>
                             <td>{{cat.name}}</td>
                             <td>{{cat.is_active}}</td>
-                            <td>
-                                <a href="{% url 'disable_category' cat.id %}">Disable</a>
-                                <a href="{% url 'enable_category' cat.id %}">Enable</a>
+                            <td class="d-flex justify-content-evenly" style="width: 10rem;">
+                                <a href="{% url 'enable_category' cat.id %}"><i class="fa-solid fa-check fa-lg" style="color: #008a10;"></i></a>
+                                <a href="{% url 'disable_category' cat.id %}"><i class="fa-solid fa-xmark fa-lg" style="color: #0010f5;"></i></a>
+                                <a href="{% url 'remove_category' cat.id %}"><i class="fa-solid fa-trash fa-lg" style="color: #e60000;"></i></a>
                             </td>
                         </tr>
                         {% endfor %}
